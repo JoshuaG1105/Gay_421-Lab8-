@@ -1,0 +1,129 @@
+{
+  "info": {
+    "name": "Node Express MongoDB API",
+    "_postman_id": "lab3-items-api-auto",
+    "description": "Postman collection for Lab 3 with automatic itemId handling",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Item",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type","value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Test Item\",\"description\": \"Test description\"}"
+        },
+        "url": {"raw": "http://localhost:3000/items","protocol": "http","host": ["localhost"],"port": "3000","path": ["items"]}
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "// Save created item _id as collection variable",
+              "let jsonData = pm.response.json();",
+              "pm.collectionVariables.set(\"itemId\", jsonData._id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get All Items",
+      "request": {
+        "method": "GET",
+        "url": {"raw": "http://localhost:3000/items","protocol": "http","host": ["localhost"],"port": "3000","path": ["items"]}
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Update Item",
+      "request": {
+        "method": "PATCH",
+        "header": [{"key": "Content-Type","value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Updated Item\"}"
+        },
+        "url": {"raw": "http://localhost:3000/items/{{itemId}}","protocol": "http","host": ["localhost"],"port": "3000","path": ["items","{{itemId}}"]}
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Delete Item",
+      "request": {
+        "method": "DELETE",
+        "url": {"raw": "http://localhost:3000/items/{{itemId}}","protocol": "http","host": ["localhost"],"port": "3000","path": ["items","{{itemId}}"]}
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Process Item",
+      "request": {
+        "method": "POST",
+        "url": {"raw": "http://localhost:3000/items/{{itemId}}/process","protocol": "http","host": ["localhost"],"port": "3000","path": ["items","{{itemId}}","process"]}
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "itemId",
+      "value": ""
+    }
+  ]
+}
