@@ -20,7 +20,7 @@ app.use(morgan('dev'));
 // --------------------
 // MongoDB Connection (modern Mongoose)
 // --------------------
-mongoose.connect('mongodb://localhost/mydatabase')
+mongoose.connect('mongodb://host.docker.internal:27017/mydatabase')
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
