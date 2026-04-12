@@ -20,7 +20,7 @@ app.use(morgan('dev'));
 // --------------------
 // MongoDB Connection (modern Mongoose)
 // --------------------
-mongoose.connect('mongodb://my-mongodb:27017/mydatabase')
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
